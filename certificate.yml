@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wisecow-cert
+  namespace: default
+spec:
+  secretName: wisecow-tls
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  commonName: wisecow.example.com
+  dnsNames:
+  - wisecow.example.com
