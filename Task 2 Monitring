@@ -41,4 +41,29 @@ check_process() {
         echo "$PROCESS_NAME is not running" >> $LOGFILE
     fi
 }
+Health Check 
+import requests
+import logging
+from datetime import datetime
+
+# Configuration
+APP_URL = "http://your-application-url"
+LOGFILE = "app_health.log"
+TIMEOUT = 10  # seconds
+
+# Setup logging
+logging.basicConfig(filename=LOGFILE, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def check_application_health(url):
+    try:
+        response = requests.get(url, timeout=TIMEOUT)
+        if response.status_code == 200:
+            logging.info(f"The application at {url} is UP")
+        else:
+            logging.warning(f"The application at {url} returned status code: {response.status_code}")
+    except requests.RequestException as e:
+        logging.error(f"Error checking the application: {e}")
+
+if __name__ == "__main__":
+    check_application_health(APP_URL)
 
